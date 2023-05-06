@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient()
-import { CardBody } from "../model/card-dto";
+import { CardBody,Card } from "../model/card-dto";
 import * as fs from 'fs'
 
 
@@ -24,6 +24,16 @@ export const findCard = async (id: number) => {
         }
     })
 }
+
+
+export const getAllCard = async() => {
+    return prisma.card.findMany({
+        include: {
+            category_id: true
+        }
+    })
+}
+
 
 export const updateCard = async (id: number, card: CardBody, image: string) => {
     return prisma.card.update({
